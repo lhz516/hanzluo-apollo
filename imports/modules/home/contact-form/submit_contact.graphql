@@ -1,0 +1,5 @@
+mutation submitContact($input: ContactInput!) {
+  submitContact(input: $input) {
+    _id
+  }
+}

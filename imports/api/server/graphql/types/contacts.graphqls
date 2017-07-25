@@ -1,0 +1,26 @@
+type Query {
+  contacts: [Contact]
+}
+
+scalar Date
+
+input ContactInput {
+  name: String!
+  email: String!
+  subject: String!
+  content: String!
+}
+
+type Contact {
+  _id: ID!
+  name: String!
+  email: String!
+  subject: String!
+  content: String!
+  createdAt: Date!
+  updatedAt: Date
+}
+
+type Mutation {
+  submitContact(input: ContactInput!): Contact
+}

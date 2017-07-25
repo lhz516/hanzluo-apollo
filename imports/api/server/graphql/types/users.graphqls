@@ -1,0 +1,18 @@
+type Query {
+  user: User
+}
+
+type Email {
+  address: String!
+  verified: Boolean!
+}
+
+type Profile {
+  name: String
+}
+
+type User {
+  emails: [Email]
+  profile: Profile
+  _id: ID!
+}
