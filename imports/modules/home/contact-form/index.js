@@ -4,15 +4,16 @@ import Input from "antd/lib/input";
 import Button from "antd/lib/button";
 import Modal from "antd/lib/modal";
 import { graphql } from 'react-apollo';
+import MutationState from 'react-apollo-mutation-state';
+import SUBMIT_CONTACT_MUTATION from './submit_contact.graphql';
+
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-import SUBMIT_CONTACT_MUTATION from './submit_contact.graphql';
-
-const ContactForm = ({form, submit}) => {
+const ContactForm = ({form, submit, mutation}) => {
   const { getFieldDecorator } = form;
   return (
-    <Form layout="vertical" onSubmit={e => submit(e)}>
+    <Form layout="vertical" onSubmit={submit}>
       <FormItem
         labelCol={{ xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 } }}
         wrapperCol={{ xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 } }}
@@ -71,7 +72,7 @@ const ContactForm = ({form, submit}) => {
           <TextArea />
         )}
       </FormItem>
-      <Button size="large" type="primary" htmlType="submit">
+      <Button size="large" type="primary" htmlType="submit" loading={mutation.loading}>
         Submit
       </Button>
     </Form>
@@ -82,21 +83,25 @@ const withData = graphql(SUBMIT_CONTACT_MUTATION, {
   props: ({ mutate, ownProps}) => ({
     submit: e => {
       e.preventDefault();
-      ownProps.form.validateFields((err, values) => {
+      const { form, mutation } = ownProps;
+      if (mutation.loading) return;
+      form.validateFields((err, values) => {
         if (!err) {
+          mutation.set({ loading: true });
           mutate({
             variables: {
               input: values
             },
           }).then(() => {
-            ownProps.form.resetFields();
+            mutation.set({ error: null, loading: false });
+            form.resetFields();
             Modal.success({
               title: 'Success',
               content: 'Message has been sent to Hanz\'s email',
               okText: 'OK',
             });
           }).catch((error) => {
-            console.log(error);
+            mutation.set({ error, loading: false });
             Modal.error({
               title: 'Error',
               content: error.message,
@@ -109,6 +114,8 @@ const withData = graphql(SUBMIT_CONTACT_MUTATION, {
   }),
 });
 
-const WrappedContactForm = Form.create()(withData(ContactForm));
+const withMutationState = MutationState();
+
+const WrappedContactForm = Form.create()(withMutationState(withData(ContactForm)));
 
 export default WrappedContactForm;

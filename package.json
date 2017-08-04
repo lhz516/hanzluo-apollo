@@ -8,9 +8,9 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "antd": "^2.12.2",
-    "apollo-client": "^1.8.1",
-    "apollo-server-express": "^1.0.4",
+    "antd": "^2.12.3",
+    "apollo-client": "^1.9.0",
+    "apollo-server-express": "^1.0.5",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
@@ -27,16 +27,17 @@
     "invariant": "^2.2.1",
     "merge-graphql-schemas": "^1.1.1",
     "meteor-node-stubs": "^0.2.11",
-    "prop-types": "^15.5.8",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
-    "react-apollo": "^1.4.8",
+    "react-apollo": "^1.4.10",
+    "react-apollo-mutation-state": "^1.0.1",
     "react-dom": "^15.6.1",
     "react-faux-dom": "^4.0.3",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
-    "subscriptions-transport-ws": "^0.8.1",
+    "subscriptions-transport-ws": "^0.8.2",
     "tracker-component": "^1.3.21"
   },
   "devDependencies": {
@@ -46,7 +47,6 @@
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-meteor": "4.0.0",
     "eslint-plugin-no-unused-vars-rest": "^1.0.4",
-    "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.0"
   }
 }
