@@ -141,7 +141,7 @@ const Home = () => (
             <p>Meteor (node.js)</p>
             <p>React</p>
             <p>Sass/Less</p>
-            <p>JQuery</p>
+            <p>Apollo GraphQL</p>
           </div>
         </Col>
         <Col className="skill" xs={11} sm={10} md={6} lg={5} xl={4}>

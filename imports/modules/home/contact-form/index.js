@@ -73,7 +73,7 @@ const ContactForm = ({form, submit, mutation}) => {
         )}
       </FormItem>
       <Button size="large" type="primary" htmlType="submit" loading={mutation.loading}>
-        Submit
+        Send
       </Button>
     </Form>
   )
