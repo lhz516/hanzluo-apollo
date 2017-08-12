@@ -38,16 +38,19 @@ const fontSizeMapper = word => Math.log2(word.value) * 5;
 const rotate = () => (Math.random() - .5) * 30;
 
 
-const scrollTo = (element, to, duration) => {
-  if (duration <= 0) return;
-  const difference = to - element.scrollTop;
+const scrollTo = (to, duration) => {
+  const difference = to - window.pageYOffset;
   const perTick = difference / duration * 10;
 
-  setTimeout(() => {
-    element.scrollTop = element.scrollTop + perTick;
-    if (element.scrollTop === to) return;
-    scrollTo(element, to, duration - 10);
-  }, 10);
+  const scroll = (currentPos) => {
+    setTimeout(() => {
+      const newPos = currentPos + perTick;
+      window.scrollBy(null, perTick);
+      if (window.pageYOffset >= to) return;
+      scroll(newPos);
+    }, 10);
+  };
+  scroll(window.pageYOffset);
 };
 
 const Home = () => (
@@ -63,7 +66,7 @@ const Home = () => (
             <h1>
               Hanz Luo&nbsp;
               <i
-                onClick={() => scrollTo(document.body, document.body.scrollHeight, 500)}
+                onClick={() => scrollTo(document.body.scrollHeight - window.innerHeight, 250)}
                 id="send-message"
                 className="fa fa-envelope-o"
                 aria-hidden="true"
