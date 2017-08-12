@@ -1,7 +1,6 @@
 import React from 'react';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
-import './style.less';
 
 const Resume = () => (
   <Row id="resume-page-wrapper" type="flex" justify="center">

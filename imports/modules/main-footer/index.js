@@ -1,5 +1,4 @@
 import React from 'react';
-import './style.less';
 
 const MainFooter = () => (
   <div id="main-footer">

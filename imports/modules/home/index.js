@@ -36,7 +36,6 @@ const data = [
 const fontSizeMapper = word => Math.log2(word.value) * 5;
 const rotate = () => (Math.random() - .5) * 30;
 
-import './style.less';
 
 const scrollTo = (element, to, duration) => {
   if (duration <= 0) return;

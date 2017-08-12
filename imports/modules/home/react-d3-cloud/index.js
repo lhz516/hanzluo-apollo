@@ -1,5 +1,6 @@
 // Forked from https://github.com/Yoctol/react-d3-cloud
 
+import { Meteor } from 'meteor/meteor';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactFauxDom from 'react-faux-dom';
@@ -71,6 +72,7 @@ class WordCloud extends Component {
   }
 
   render() {
+    if (Meteor.isServer) return this.wordCloud.toReact();
     const { data, padding, font, fontSizeMapper, rotate } = this.props;
     const { width, height } = this.state;
     const wordCounts = data.map(
