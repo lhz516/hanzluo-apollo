@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 import { Meteor } from 'meteor/meteor';
 import { createApolloServer } from 'meteor/apollo';
 import { onPageLoad } from "meteor/server-render";
@@ -24,6 +25,8 @@ createApolloServer({
 Meteor.startup(() => {
   onPageLoad(sink => {
     const html = renderToString(<ServerRoutes req={sink.request} />);
+    const helmet = Helmet.renderStatic();
+    sink.appendToHead(helmet.title.toString());
     sink.renderIntoElementById('app', html);
   });
 });

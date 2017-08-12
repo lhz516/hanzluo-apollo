@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 import Layout from 'antd/lib/layout';
 const { Content } = Layout;
 import Row from 'antd/lib/row';
@@ -51,6 +52,9 @@ const scrollTo = (element, to, duration) => {
 
 const Home = () => (
   <Content>
+    <Helmet>
+      <title>Home | Hanz Luo</title>
+    </Helmet>
     <div id="blue-bg-wrapper">
       <div id="avatar-and-intro">
         <Row type="flex" justify="center" align="middle">

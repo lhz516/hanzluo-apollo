@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Layout from 'antd/lib/layout';
 const { Header } = Layout;
-import SideBar from '/imports/modules/main-sider';
+// import SideBar from '/imports/modules/main-sider';
 import Nav from '/imports/modules/main-nav';
 import MainFooter from '/imports/modules/main-footer';
 import Home from '/imports/modules/home';
