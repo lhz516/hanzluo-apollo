@@ -8,7 +8,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "antd": "^2.12.5",
+    "antd": "^2.12.6",
     "apollo-client": "^1.9.1",
     "apollo-server-express": "^1.1.0",
     "bcrypt": "^0.8.7",
@@ -25,11 +25,12 @@
     "graphql-tools": "^0.11.0",
     "indexof": "0.0.1",
     "invariant": "^2.2.1",
+    "lru-cache": "^4.1.1",
     "merge-graphql-schemas": "^1.1.1",
     "meteor-node-stubs": "^0.2.11",
     "prop-types": "^15.5.10",
     "react": "^16.0.0-beta.5",
-    "react-apollo": "^1.4.12",
+    "react-apollo": "^1.4.14",
     "react-apollo-mutation-state": "^1.0.1",
     "react-dom": "^16.0.0-beta.5",
     "react-faux-dom": "^4.0.3",

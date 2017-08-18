@@ -1,9 +1,10 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
-import { Meteor } from 'meteor/meteor';
+// import { Meteor } from 'meteor/meteor';
+import LRUCache from 'lru-cache';
 import { createApolloServer } from 'meteor/apollo';
 import { onPageLoad } from "meteor/server-render";
-import { renderToString } from "react-dom/server";
+import { renderToStaticMarkup } from "react-dom/server";
 import ServerRoutes from './routes';
 import { makeExecutableSchema } from 'graphql-tools';
 import * as dbs from '/imports/api/server/collections';
@@ -22,11 +23,26 @@ createApolloServer({
   schema,
 });
 
-Meteor.startup(() => {
-  onPageLoad(sink => {
-    const html = renderToString(<ServerRoutes req={sink.request} />);
+const ssrCache = new LRUCache({
+  max: 100 * 1024,
+  maxAge: 1000 * 60 * 60 * 24,
+});
+
+const getSSRCache = (url) => {
+  if (ssrCache.has(url.pathname)) {
+    return ssrCache.get(url.pathname);
+  } else {
+    const bodyReactHtml = renderToStaticMarkup(<ServerRoutes url={url} />);
     const helmet = Helmet.renderStatic();
-    sink.appendToHead(helmet.title.toString());
-    sink.renderIntoElementById('app', html);
-  });
+    const title = helmet.title.toString();
+    const SSRCache = { bodyReactHtml, title };
+    ssrCache.set(url.pathname, SSRCache);
+    return SSRCache;
+  }
+};
+
+onPageLoad(sink => {
+  const cache = getSSRCache(sink.request.url);
+  sink.appendToHead(cache.title.toString());
+  sink.renderIntoElementById('app', cache.bodyReactHtml);
 });

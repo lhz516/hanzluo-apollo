@@ -8,9 +8,9 @@ import MainFooter from '/imports/modules/main-footer';
 import Home from '/imports/modules/home';
 import Resume from '/imports/modules/resume';
 
-const ServerRoutes = ({req, context = {}}) => (
+const ServerRoutes = ({url, context = {}}) => (
   <StaticRouter
-    location={req.url}
+    location={url.pathname}
     context={context}
   >
     <Layout>
