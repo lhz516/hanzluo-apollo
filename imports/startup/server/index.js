@@ -1,6 +1,7 @@
 import React from 'react';
+import cors from 'cors';
 import { Helmet } from "react-helmet";
-// import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import LRUCache from 'lru-cache';
 import { createApolloServer } from 'meteor/apollo';
 import { onPageLoad } from "meteor/server-render";
@@ -16,11 +17,26 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
+const whitelist = [
+  'https://hanzluo.com',
+  'https://hanzdream.com',
+];
+
+const corsOptions = {
+  origin(origin, callback) {
+    const originIsWhitelisted = whitelist.indexOf(origin) !== -1 || origin === Meteor.absoluteUrl();
+    callback(null, originIsWhitelisted);
+  },
+  credentials: true
+};
+
 createApolloServer({
   rootValue : {
     dbs
   },
   schema,
+}, {
+  configServer: graphQLServer => graphQLServer.use(cors(corsOptions)),
 });
 
 const ssrCache = new LRUCache({
