@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import LRUCache from 'lru-cache';
 import { createApolloServer } from 'meteor/apollo';
 import { onPageLoad } from "meteor/server-render";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToStaticMarkup, renderToStaticNodeStream } from "react-dom/server";
 import ServerRoutes from './routes';
 import { makeExecutableSchema } from 'graphql-tools';
 import * as dbs from '/imports/api/server/collections';
@@ -40,20 +40,22 @@ createApolloServer({
 });
 
 const ssrCache = new LRUCache({
-  max: 100 * 1024,
-  maxAge: 1000 * 60 * 60 * 24,
+  maxAge: 1000 * 60 * 60 * 24 * 60,
 });
 
 const getSSRCache = (url) => {
   if (ssrCache.has(url.pathname)) {
     return ssrCache.get(url.pathname);
   } else {
-    const bodyReactHtml = renderToStaticMarkup(<ServerRoutes url={url} />);
+    const bodyReactHtml = renderToStaticNodeStream(<ServerRoutes url={url} />);
     const helmet = Helmet.renderStatic();
     const title = helmet.title.toString();
-    const SSRCache = { bodyReactHtml, title };
-    ssrCache.set(url.pathname, SSRCache);
-    return SSRCache;
+    Meteor.defer(() => {
+      const bodyReactHtml = renderToStaticMarkup(<ServerRoutes url={url} />);
+      const SSRCache = { bodyReactHtml, title };
+      ssrCache.set(url.pathname, SSRCache);
+    });
+    return { bodyReactHtml, title };
   }
 };
 

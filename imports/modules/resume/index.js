@@ -13,7 +13,7 @@ const Resume = () => (
       <object width="100%" height="900px"  type="application/pdf" data="/Hanz-Resume.pdf" className="pdf-file" />
     </Col>
     <Col className="narrow-screen" xs={24} sm={22} md={18} lg={16} xl={14}>
-      <p className="message">Check PDF version, <a href="/Hanz-Resume.pdf" target="_blank ">click here</a></p>
+      <p className="message">Read PDF version, <a href="/Hanz-Resume.pdf" target="_blank ">click here</a></p>
       <img src="/Hanz-Resume.png" alt="resume"/>
     </Col>
   </Row>
