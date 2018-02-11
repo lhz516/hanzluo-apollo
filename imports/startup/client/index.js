@@ -1,16 +1,16 @@
-import { Meteor } from 'meteor/meteor';
-import { hydrate } from 'react-dom';
-import React from 'react';
+import { Meteor } from 'meteor/meteor'
+import { hydrate } from 'react-dom'
+import React from 'react'
 
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo'
 import { client } from './apollo'
-import Routes from './routes';
+import Routes from './routes'
 
 Meteor.startup(() => {
   hydrate(
     <ApolloProvider client={client}>
       <Routes />
     </ApolloProvider>,
-    document.getElementById('app')
-  );
-});
+    document.getElementById('app'),
+  )
+})

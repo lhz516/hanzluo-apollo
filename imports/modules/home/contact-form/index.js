@@ -1,17 +1,17 @@
-import React from 'react';
-import Form from "antd/lib/form";
-import Input from "antd/lib/input";
-import Button from "antd/lib/button";
-import Modal from "antd/lib/modal";
-import { graphql } from 'react-apollo';
-import MutationState from 'react-apollo-mutation-state';
-import SUBMIT_CONTACT_MUTATION from './submit_contact.graphql';
+import React from 'react'
+import Form from 'antd/lib/form'
+import Input from 'antd/lib/input'
+import Button from 'antd/lib/button'
+import Modal from 'antd/lib/modal'
+import { graphql } from 'react-apollo'
+import MutationState from 'react-apollo-mutation-state'
+import SUBMIT_CONTACT_MUTATION from './submit_contact.graphql'
 
-const { TextArea } = Input;
-const FormItem = Form.Item;
+const { TextArea } = Input
+const FormItem = Form.Item
 
-const ContactForm = ({form, submit, mutation}) => {
-  const { getFieldDecorator } = form;
+const ContactForm = ({ form, submit, mutation }) => {
+  const { getFieldDecorator } = form
   return (
     <Form layout="vertical" onSubmit={submit}>
       <FormItem
@@ -21,12 +21,13 @@ const ContactForm = ({form, submit, mutation}) => {
         hasFeedback
       >
         {getFieldDecorator('name', {
-          rules: [{
-            required: true, message: 'Please input your name!',
-          }],
-        })(
-          <Input />
-        )}
+          rules: [
+            {
+              required: true,
+              message: 'Please input your name!',
+            },
+          ],
+        })(<Input />)}
       </FormItem>
       <FormItem
         labelCol={{ xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 } }}
@@ -35,14 +36,17 @@ const ContactForm = ({form, submit, mutation}) => {
         hasFeedback
       >
         {getFieldDecorator('email', {
-          rules: [{
-            type: 'email', message: 'The input is not valid E-mail!',
-          }, {
-            required: true, message: 'Please input your E-mail!',
-          }],
-        })(
-          <Input />
-        )}
+          rules: [
+            {
+              type: 'email',
+              message: 'The input is not valid E-mail!',
+            },
+            {
+              required: true,
+              message: 'Please input your E-mail!',
+            },
+          ],
+        })(<Input />)}
       </FormItem>
       <FormItem
         labelCol={{ xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 } }}
@@ -51,12 +55,13 @@ const ContactForm = ({form, submit, mutation}) => {
         hasFeedback
       >
         {getFieldDecorator('subject', {
-          rules: [{
-            required: true, message: 'Please input subject!',
-          }],
-        })(
-          <Input />
-        )}
+          rules: [
+            {
+              required: true,
+              message: 'Please input subject!',
+            },
+          ],
+        })(<Input />)}
       </FormItem>
       <FormItem
         labelCol={{ xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 } }}
@@ -65,57 +70,60 @@ const ContactForm = ({form, submit, mutation}) => {
         hasFeedback
       >
         {getFieldDecorator('content', {
-          rules: [{
-            required: true, message: 'Please input content!',
-          }],
-        })(
-          <TextArea />
-        )}
+          rules: [
+            {
+              required: true,
+              message: 'Please input content!',
+            },
+          ],
+        })(<TextArea />)}
       </FormItem>
       <Button size="large" type="primary" htmlType="submit" loading={mutation.loading}>
         Send
       </Button>
     </Form>
   )
-};
+}
 
 const withData = graphql(SUBMIT_CONTACT_MUTATION, {
-  props: ({ mutate, ownProps}) => ({
+  props: ({ mutate, ownProps }) => ({
     submit: e => {
-      e.preventDefault();
-      const { form, mutation } = ownProps;
-      if (mutation.loading) return;
+      e.preventDefault()
+      const { form, mutation } = ownProps
+      if (mutation.loading) return
       form.validateFields((err, values) => {
         if (!err) {
-          mutation.set({ loading: true });
+          mutation.set({ loading: true })
           mutate({
             variables: {
-              input: values
+              input: values,
             },
-          }).then(() => {
-            mutation.set({ error: null, loading: false });
-            form.resetFields();
-            Modal.success({
-              title: 'Success',
-              content: 'Message has been sent to Hanz\'s email',
-              okText: 'OK',
-            });
-          }).catch((error) => {
-            mutation.set({ error, loading: false });
-            Modal.error({
-              title: 'Error',
-              content: error.message,
-              okText: 'OK',
-            });
-          });
+          })
+            .then(() => {
+              mutation.set({ error: null, loading: false })
+              form.resetFields()
+              Modal.success({
+                title: 'Success',
+                content: 'Message has been sent to Hanz\'s email',
+                okText: 'OK',
+              })
+            })
+            .catch(error => {
+              mutation.set({ error, loading: false })
+              Modal.error({
+                title: 'Error',
+                content: error.message,
+                okText: 'OK',
+              })
+            })
         }
-      });
+      })
     },
   }),
-});
+})
 
-const withMutationState = MutationState();
+const withMutationState = MutationState()
 
-const WrappedContactForm = Form.create()(withMutationState(withData(ContactForm)));
+const WrappedContactForm = Form.create()(withMutationState(withData(ContactForm)))
 
-export default WrappedContactForm;
+export default WrappedContactForm

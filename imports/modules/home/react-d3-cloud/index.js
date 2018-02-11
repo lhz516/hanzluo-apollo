@@ -1,38 +1,30 @@
 // Forked from https://github.com/Yoctol/react-d3-cloud
 
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactFauxDom from 'react-faux-dom';
-import * as d3 from 'd3';
-import cloud from 'd3-cloud';
+import React from 'react'
+import { Meteor } from 'meteor/meteor'
+import PropTypes from 'prop-types'
+import ReactFauxDom from 'react-faux-dom'
+import * as d3 from 'd3'
+import cloud from 'd3-cloud'
 import Icon from 'antd/lib/icon'
 
-const defaultFontSizeMapper = word => word.value;
-const fill = d3.scaleOrdinal(d3.schemeCategory10);
+const defaultFontSizeMapper = word => word.value
+const fill = d3.scaleOrdinal(d3.schemeCategory10)
 
-class WordCloud extends Component {
+class WordCloud extends React.Component {
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-    })).isRequired,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
-    padding: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
-    font: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]),
+    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    font: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     fontSizeMapper: PropTypes.func,
-    rotate: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
+    rotate: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   }
 
   static defaultProps = {
@@ -47,15 +39,15 @@ class WordCloud extends Component {
     height: 0,
   }
 
-  justUpdatedDOM = false;
+  justUpdatedDOM = false
 
   componentWillMount() {
-    this.wordCloud = ReactFauxDom.createElement('div');
-    this.wordCloud.style.setProperty('width', '100%');
-    this.wordCloud.style.setProperty('height', '100%');
-    this.wordCloud.style.setProperty('margin', '0 auto');
+    this.wordCloud = ReactFauxDom.createElement('div')
+    this.wordCloud.style.setProperty('width', '100%')
+    this.wordCloud.style.setProperty('height', '100%')
+    this.wordCloud.style.setProperty('margin', '0 auto')
     if (Meteor.isServer) {
-      this.wordCloud.style.setProperty('text-align', 'center');
+      this.wordCloud.style.setProperty('text-align', 'center')
       this.wordCloud.appendChild(<Icon key="1" style={{ fontSize: '36px', marginTop: '60px' }} type="loading" />)
     }
   }
@@ -64,29 +56,30 @@ class WordCloud extends Component {
     this.setState({
       width: this.wordCloud.component.offsetWidth,
       height: this.wordCloud.component.offsetHeight,
-    });
-    let windowWidth = window.innerWidth;
+    })
+    let windowWidth = window.innerWidth
     d3.select(window).on('resize', () => {
       if (window.innerWidth >= 320 && this.justUpdatedDOM === false && window.innerWidth !== windowWidth) {
-        windowWidth = window.innerWidth;
+        windowWidth = window.innerWidth
         this.setState({
           width: this.wordCloud.component.offsetWidth,
           height: this.wordCloud.component.offsetHeight,
-        });
+        })
       }
-    });
+    })
   }
 
   render() {
-    if (Meteor.isServer) return this.wordCloud.toReact();
-    const { data, padding, font, fontSizeMapper, rotate } = this.props;
-    const { width, height } = this.state;
-    const wordCounts = data.map(
-      text => ({ ...text })
-    );
+    if (Meteor.isServer) return this.wordCloud.toReact()
+    const { data, padding, font, fontSizeMapper, rotate } = this.props
+    const { width, height } = this.state
+    const wordCounts = data.map(text => ({ ...text }))
 
     // clear old words
-    d3.select(this.wordCloud).selectAll('*').remove();
+    d3
+      .select(this.wordCloud)
+      .selectAll('*')
+      .remove()
 
     // render based on new data
     const layout = cloud()
@@ -97,7 +90,8 @@ class WordCloud extends Component {
       .rotate(rotate)
       .fontSize(fontSizeMapper)
       .on('end', words => {
-        d3.select(this.wordCloud)
+        d3
+          .select(this.wordCloud)
           .append('svg')
           // .attr('width', layout.size()[0])
           // .attr('height', layout.size()[1])
@@ -112,16 +106,14 @@ class WordCloud extends Component {
           .style('font-family', font)
           .style('fill', (d, i) => fill(i))
           .attr('text-anchor', 'middle')
-          .attr('transform',
-            d => `translate(${[d.x, d.y]})rotate(${d.rotate})`
-          )
-          .text(d => d.text);
-      });
+          .attr('transform', d => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
+          .text(d => d.text)
+      })
 
-    layout.start();
+    layout.start()
 
-    return this.wordCloud.toReact();
+    return this.wordCloud.toReact()
   }
 }
 
-export default WordCloud;
+export default WordCloud

@@ -1,13 +1,13 @@
-import React from 'react';
-import { Helmet } from "react-helmet";
-import Layout from 'antd/lib/layout';
-const { Content } = Layout;
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Card from 'antd/lib/card';
-import Timeline from 'antd/lib/timeline';
-import WordCloud from './react-d3-cloud';
-import ContactForm from './contact-form';
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import Layout from 'antd/lib/layout'
+const { Content } = Layout
+import Row from 'antd/lib/row'
+import Col from 'antd/lib/col'
+import Card from 'antd/lib/card'
+import Timeline from 'antd/lib/timeline'
+import WordCloud from './react-d3-cloud'
+import ContactForm from './contact-form'
 
 const data = [
   { text: 'JavaScript', value: 650 },
@@ -32,26 +32,25 @@ const data = [
   { text: 'DDP', value: 13 },
   { text: 'Babel', value: 12 },
   { text: 'Eslint', value: 11 },
-];
+]
 
-const fontSizeMapper = word => Math.log2(word.value) * 5;
-const rotate = () => (Math.random() - .5) * 30;
-
+const fontSizeMapper = word => Math.log2(word.value) * 5
+const rotate = () => (Math.random() - 0.5) * 30
 
 const scrollTo = (to, duration) => {
-  const difference = to - window.pageYOffset;
-  const perTick = difference / duration * 10;
+  const difference = to - window.pageYOffset
+  const perTick = difference / duration * 10
 
-  const scroll = (currentPos) => {
+  const scroll = currentPos => {
     setTimeout(() => {
-      const newPos = currentPos + perTick;
-      window.scrollBy(null, perTick);
-      if (window.pageYOffset >= to) return;
-      scroll(newPos);
-    }, 10);
-  };
-  scroll(window.pageYOffset);
-};
+      const newPos = currentPos + perTick
+      window.scrollBy(null, perTick)
+      if (window.pageYOffset >= to) return
+      scroll(newPos)
+    }, 10)
+  }
+  scroll(window.pageYOffset)
+}
 
 const Home = () => (
   <Content>
@@ -96,28 +95,16 @@ const Home = () => (
         </Col>
         <Col className="timeline-right" xs={22} sm={20} md={7} lg={6} xl={5}>
           <Timeline>
-            <Timeline.Item
-              color="#001064"
-              dot={<i className="fa fa-graduation-cap" aria-hidden="true" />}
-            >
+            <Timeline.Item color="#001064" dot={<i className="fa fa-graduation-cap" aria-hidden="true" />}>
               Dec, 2013 - Graduated from CSUEB Computer Science B.S.
             </Timeline.Item>
-            <Timeline.Item
-              color="#001064"
-              dot={<i className="fa fa-suitcase" aria-hidden="true" />}
-            >
+            <Timeline.Item color="#001064" dot={<i className="fa fa-suitcase" aria-hidden="true" />}>
               Feb, 2014 - Worked at KleenSpeed as Web Developer Intern
             </Timeline.Item>
-            <Timeline.Item
-              color="#001064"
-              dot={<i className="fa fa-graduation-cap" aria-hidden="true" />}
-            >
+            <Timeline.Item color="#001064" dot={<i className="fa fa-graduation-cap" aria-hidden="true" />}>
               June, 2016 - Graduated from CSUEB Multimedia M.A.
             </Timeline.Item>
-            <Timeline.Item
-              color="#001064"
-              dot={<i className="fa fa-suitcase" aria-hidden="true" />}
-            >
+            <Timeline.Item color="#001064" dot={<i className="fa fa-suitcase" aria-hidden="true" />}>
               Sep, 2016 - Worked at Maodou as Web Developer
             </Timeline.Item>
           </Timeline>
@@ -183,7 +170,12 @@ const Home = () => (
       <Row className="project-list" type="flex" justify="center">
         <Col xs={22} sm={20} md={7} lg={6} xl={5}>
           <Card style={{ width: '100%' }} bodyStyle={{ padding: 0 }}>
-            <a href="https://github.com/maodouio/meteor-react-redux-base" target="_blank" className="container">
+            <a
+              href="https://github.com/maodouio/meteor-react-redux-base"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="container"
+            >
               <h2>meteor-react-redux-base</h2>
               <ul className="texts">
                 <li>Mantra-plus integrated</li>
@@ -197,7 +189,12 @@ const Home = () => (
         </Col>
         <Col xs={22} sm={20} md={7} lg={6} xl={5}>
           <Card style={{ width: '100%' }} bodyStyle={{ padding: 0 }}>
-            <a href="https://github.com/lhz516/react-h5-audio-player" target="_blank" className="container">
+            <a
+              href="https://github.com/lhz516/react-h5-audio-player"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="container"
+            >
               <h2>react-h5-audio-player</h2>
               <ul className="texts">
                 <li>React audio player component with UI</li>
@@ -211,7 +208,12 @@ const Home = () => (
         </Col>
         <Col xs={22} sm={20} md={7} lg={6} xl={5}>
           <Card style={{ width: '100%' }} bodyStyle={{ padding: 0 }}>
-            <a href="https://github.com/lhz516/hanzRhymes" target="_blank" className="container">
+            <a
+              href="https://github.com/lhz516/hanzRhymes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="container"
+            >
               <h2>hanz-rhymes</h2>
               <ul className="texts">
                 <li>Seeks rhymes of Chinese characters</li>
@@ -230,29 +232,51 @@ const Home = () => (
           <h1 className="contact-title">Contact</h1>
           <p className="contact-desc">Your message will be sent to my email after you submit the contact form.</p>
           <div className="social-medias">
-            <a className="social-media-link" href="https://www.facebook.com/hanzhang.luo" target="_blank">
+            <a
+              className="social-media-link"
+              href="https://www.facebook.com/hanzhang.luo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa fa-facebook-square" aria-hidden="true" />
               &nbsp;&nbsp;&nbsp;
               <span>Facebook</span>
             </a>
-            <a className="social-media-link" href="https://github.com/lhz516/" target="_blank">
+            <a
+              className="social-media-link"
+              href="https://github.com/lhz516/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa fa-github-square" aria-hidden="true" />
               &nbsp;&nbsp;&nbsp;
               <span>Github</span>
             </a>
-            <a className="social-media-link" href="https://www.linkedin.com/in/hanzhang-luo-81103082?trk=hp-identity-name" target="_blank">
+            <a
+              className="social-media-link"
+              href="https://www.linkedin.com/in/hanzhang-luo-81103082?trk=hp-identity-name"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa fa-linkedin-square" aria-hidden="true" />
               &nbsp;&nbsp;&nbsp;
               <span>LinkedIn</span>
             </a>
           </div>
         </Col>
-        <Col className="contact-form" xs={22} sm={20} md={{ span: 8, offset: 1 }} lg={{ span: 7, offset: 1 }} xl={{ span: 6, offset: 1 }}>
+        <Col
+          className="contact-form"
+          xs={22}
+          sm={20}
+          md={{ span: 8, offset: 1 }}
+          lg={{ span: 7, offset: 1 }}
+          xl={{ span: 6, offset: 1 }}
+        >
           <ContactForm />
         </Col>
       </Row>
     </div>
   </Content>
-);
+)
 
-export default Home;
+export default Home

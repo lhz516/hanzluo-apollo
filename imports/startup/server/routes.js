@@ -1,20 +1,18 @@
 import React from 'react'
-import { StaticRouter } from 'react-router';
-import { Switch, Route } from 'react-router'
-import Layout from 'antd/lib/layout';
-const { Header } = Layout;
-import Nav from '/imports/modules/main-nav';
-import MainFooter from '/imports/modules/main-footer';
-import Home from '/imports/modules/home';
-import Resume from '/imports/modules/resume';
+import { StaticRouter, Switch, Route } from 'react-router'
+import Layout from 'antd/lib/layout'
+const { Header } = Layout
+import Nav from '/imports/modules/main-nav'
+import MainFooter from '/imports/modules/main-footer'
+import Home from '/imports/modules/home'
+import Resume from '/imports/modules/resume'
 
-const ServerRoutes = ({url, context = {}}) => (
-  <StaticRouter
-    location={url.pathname}
-    context={context}
-  >
+const ServerRoutes = ({ url, context = {} }) => (
+  <StaticRouter location={url.pathname} context={context}>
     <Layout>
-      <Header><Nav /></Header>
+      <Header>
+        <Nav />
+      </Header>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/resume" component={Resume} />
@@ -22,6 +20,6 @@ const ServerRoutes = ({url, context = {}}) => (
       <MainFooter />
     </Layout>
   </StaticRouter>
-);
+)
 
-export default ServerRoutes;
+export default ServerRoutes
