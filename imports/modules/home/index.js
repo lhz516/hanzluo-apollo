@@ -12,8 +12,10 @@ import ContactForm from './contact-form'
 const data = [
   { text: 'JavaScript', value: 650 },
   { text: 'HTML', value: 500 },
+  { text: 'Jest', value: 400 },
   { text: 'Meteor', value: 300 },
   { text: 'CSS', value: 150 },
+  { text: 'VSCode', value: 120 },
   { text: 'Node', value: 88 },
   { text: 'React', value: 80 },
   { text: 'Antd', value: 74 },
@@ -24,6 +26,7 @@ const data = [
   { text: 'jQuery', value: 42 },
   { text: 'Bootstrap', value: 38 },
   { text: 'WebStorm', value: 34 },
+  { text: 'Enzyme', value: 32 },
   { text: 'Github', value: 29 },
   { text: 'MongoDB', value: 25 },
   { text: 'Ubuntu', value: 22 },
@@ -39,7 +42,7 @@ const rotate = () => (Math.random() - 0.5) * 30
 
 const scrollTo = (to, duration) => {
   const difference = to - window.pageYOffset
-  const perTick = difference / duration * 10
+  const perTick = (difference / duration) * 10
 
   const scroll = currentPos => {
     setTimeout(() => {
@@ -106,6 +109,9 @@ const Home = () => (
             </Timeline.Item>
             <Timeline.Item color="#001064" dot={<i className="fa fa-suitcase" aria-hidden="true" />}>
               Sep, 2016 - Worked at Maodou as Web Developer
+            </Timeline.Item>
+            <Timeline.Item color="#001064" dot={<i className="fa fa-suitcase" aria-hidden="true" />}>
+              Jan, 2018 - Worked at GE Digital as Software Engineer - UI
             </Timeline.Item>
           </Timeline>
         </Col>
