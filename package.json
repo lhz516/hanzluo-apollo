@@ -5,7 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.39",
+    "@babel/runtime": "^7.0.0-beta.51",
     "antd": "^3.2.0",
     "apollo-cache-inmemory": "^1.1.7",
     "apollo-client": "^2.2.3",
@@ -30,7 +30,7 @@
     "invariant": "^2.2.2",
     "lru-cache": "^4.1.1",
     "merge-graphql-schemas": "^1.4.0",
-    "meteor-node-stubs": "^0.3.2",
+    "meteor-node-stubs": "^0.4.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
